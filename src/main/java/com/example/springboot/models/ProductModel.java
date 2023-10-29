@@ -43,4 +43,13 @@ public class ProductModel implements Serializable {
     public void setValue(BigDecimal value) {
         this.value = value;
     }
+
+    @Override
+    public String toString() {
+        return "ProductModel{" +
+                "idProduct=" + idProduct +
+                ", name='" + name + '\'' +
+                ", value=" + value +
+                '}';
+    }
 }
