@@ -3,11 +3,12 @@ package com.example.springboot.repositories;
 import com.example.springboot.models.ProductModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
 @Repository
-public interface ProductRepository extends JpaRepository<ProductModel, UUID>, JpaSpecificationExecutor<ProductModel> {
+public interface ProductRepository extends JpaRepository<ProductModel, UUID>, PagingAndSortingRepository<ProductModel, UUID>, JpaSpecificationExecutor<ProductModel> {
 
 }
