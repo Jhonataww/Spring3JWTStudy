@@ -1,5 +1,6 @@
 package com.example.springboot.controllers;
 
+import com.example.springboot.dtos.ProductForm;
 import com.example.springboot.dtos.ProductRecordDto;
 import com.example.springboot.models.ProductModel;
 import com.example.springboot.repositories.ProductRepository;
@@ -111,4 +112,15 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(page);
     }
 
+    @PostMapping("/product-filter-generic") //definir padrão caso n seja passado nada
+    public ResponseEntity<Object> productFilterGeneric(@RequestBody ProductForm filter){
+        Optional<ArrayList<ProductModel>> productO = Optional.ofNullable(productService.findAllFilterGeneric(filter) );
+        if(productO.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto not found.");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(productO);
+    }
+
 }
+
+

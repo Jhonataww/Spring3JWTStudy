@@ -1,11 +1,14 @@
 package com.example.springboot.services.impl;
 
+import com.example.springboot.dtos.ProductForm;
 import com.example.springboot.models.ProductModel;
 import com.example.springboot.repositories.ProductRepository;
 import com.example.springboot.services.ProductService;
+import com.example.springboot.util.GenericSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -48,5 +51,11 @@ public class ProductServiceImpl implements ProductService {
         };
 
         return productRepository.findAll(spec, pageable );
+    }
+
+    @Override
+    public ArrayList<ProductModel> findAllFilterGeneric(ProductForm filter) {
+        Specification<ProductForm> spec = new GenericSpecification<>(filter);
+        return (ArrayList<ProductModel>) productRepository.findAll(((GenericSpecification) spec));
     }
 }
