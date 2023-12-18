@@ -13,7 +13,7 @@ public interface ProductService {
 
     public ArrayList<ProductModel> productFilter (String name, BigDecimal value);
 
-    public ArrayList<ProductModel> findAllFilterGeneric(ProductForm filter);
+    public Page<ProductModel> findAllFilterGeneric(ProductForm filter, Pageable pageable);
 
     public Page<ProductModel> productFilterPage(String name, BigDecimal value, Pageable pageable);
 

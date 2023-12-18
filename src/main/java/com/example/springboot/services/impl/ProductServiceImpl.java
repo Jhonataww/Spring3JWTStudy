@@ -54,27 +54,32 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ArrayList<ProductModel> findAllFilterGeneric(ProductForm filter) {
+    public Page<ProductModel> findAllFilterGeneric(ProductForm filter, Pageable pageable) {
         Specification<ProductForm> spec = new GenericSpecification<>(filter);
-        return (ArrayList<ProductModel>) productRepository.findAll(((GenericSpecification) spec));
+        return productRepository.findAll(((GenericSpecification) spec), pageable);
     }
 
+    @Override
     public ArrayList<ProductModel> findAll() {
         return (ArrayList<ProductModel>) productRepository.findAll();
     }
 
+    @Override
     public Page<ProductModel> findAll(Pageable pageable) {
         return productRepository.findAll(pageable);
     }
 
+    @Override
     public ProductModel save(ProductModel productModel) {
         return productRepository.save(productModel);
     }
 
+    @Override
     public void delete(ProductModel productModel) {
         productRepository.delete(productModel);
     }
 
+    @Override
     public ProductModel findById(UUID id) {
         return productRepository.findById(id).get();
     }

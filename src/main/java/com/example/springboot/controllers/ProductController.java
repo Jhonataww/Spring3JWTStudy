@@ -124,12 +124,16 @@ public class ProductController {
     }
 
     @PostMapping("/product-filter-generic") //definir padrão caso n seja passado nada
-    public ResponseEntity<Object> productFilterGeneric(@RequestBody ProductForm filter){
-        Optional<ArrayList<ProductModel>> productO = Optional.ofNullable(productService.findAllFilterGeneric(filter) );
+    public ResponseEntity<Object> productFilterGeneric(@RequestBody ProductForm filter, Pageable pageable){
+        Optional<Page<ProductModel>> productO = Optional.ofNullable(productService.findAllFilterGeneric(filter , pageable));
         if(productO.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto not found.");
         }
-        return ResponseEntity.status(HttpStatus.OK).body(productO);
+        for(ProductModel productModel : productO.get() ){
+            productModel.add(linkTo(methodOn(ProductController.class).getOneProduct(productModel.getIdProduct())).withSelfRel());
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(productO.get());
     }
 
 }

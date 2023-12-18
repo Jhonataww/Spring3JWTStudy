@@ -1,5 +1,6 @@
 package com.example.springboot.util;
 
+import com.example.springboot.exceptions.specificationException.SpecificationException;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
 
@@ -32,8 +33,10 @@ public class GenericSpecification<T> implements Specification<T> {
 
         for (Field field : fields) {
             field.setAccessible(true);
+
+            Object value = null;
             try {
-                Object value = field.get(filter);
+                value = field.get(filter);
                 if (value != null) {
                     if (value instanceof String) {
                         if (!StringUtils.isEmpty(value)) {
@@ -56,7 +59,11 @@ public class GenericSpecification<T> implements Specification<T> {
                     }
                 }
             } catch (IllegalAccessException e) {
-                // Handle exception, if needed
+                try {
+                    throw new SpecificationException(new Date(), e.getLocalizedMessage(), value);
+                } catch (SpecificationException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         }
 
