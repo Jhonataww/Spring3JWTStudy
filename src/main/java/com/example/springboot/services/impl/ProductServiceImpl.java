@@ -8,12 +8,12 @@ import com.example.springboot.util.GenericSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.UUID;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -58,4 +58,26 @@ public class ProductServiceImpl implements ProductService {
         Specification<ProductForm> spec = new GenericSpecification<>(filter);
         return (ArrayList<ProductModel>) productRepository.findAll(((GenericSpecification) spec));
     }
+
+    public ArrayList<ProductModel> findAll() {
+        return (ArrayList<ProductModel>) productRepository.findAll();
+    }
+
+    public Page<ProductModel> findAll(Pageable pageable) {
+        return productRepository.findAll(pageable);
+    }
+
+    public ProductModel save(ProductModel productModel) {
+        return productRepository.save(productModel);
+    }
+
+    public void delete(ProductModel productModel) {
+        productRepository.delete(productModel);
+    }
+
+    public ProductModel findById(UUID id) {
+        return productRepository.findById(id).get();
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package com.example.springboot.models;
 
 import jakarta.persistence.*;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -8,7 +9,8 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "TB_PRODUCT")
-public class ProductModel implements Serializable {
+public class ProductModel extends RepresentationModel<ProductModel> implements Serializable {
+    //Represententação é uma classe que contém os dados que serão enviados para o cliente da biblioteca heteoas para hyperlinks.
     private static final long serialVersionUID = 1L; // Used to versioning apos serialização
 
     @Id

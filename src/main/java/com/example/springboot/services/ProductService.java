@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.UUID;
 
 public interface ProductService {
 
@@ -16,4 +16,14 @@ public interface ProductService {
     public ArrayList<ProductModel> findAllFilterGeneric(ProductForm filter);
 
     public Page<ProductModel> productFilterPage(String name, BigDecimal value, Pageable pageable);
+
+    public ArrayList<ProductModel> findAll();
+
+    public Page<ProductModel> findAll(Pageable pageable);
+
+    public ProductModel save(ProductModel productModel);
+
+    public void delete(ProductModel productModel);
+
+    public ProductModel findById(UUID id);
 }
